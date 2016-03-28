@@ -2,6 +2,6 @@
 
 class Model_Sex
 {
-	const MALE = 0;
-	const FEMALE = 1;
+	const MALE = '男性';
+	const FEMALE = '女性';
 }

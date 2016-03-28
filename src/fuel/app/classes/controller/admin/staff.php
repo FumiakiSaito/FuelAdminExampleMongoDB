@@ -13,6 +13,8 @@ class Controller_Admin_Staff extends Controller_Admin
 	{
 		parent::before();
 		$this->template->title = '社員管理';
+
+		$this->_divisions = array('開発部' => '開発部', '総務部' => '総務部');
 	}
 
 	/**
@@ -37,7 +39,7 @@ class Controller_Admin_Staff extends Controller_Admin
 	{
 		$data = null;
 		$data['display_title'] = '社員登録';
-
+		$data['divisions'] = $this->_divisions;
 		$this->template->content = View::forge('admin/staff/add', $data);
 	}
 
@@ -54,12 +56,14 @@ class Controller_Admin_Staff extends Controller_Admin
 		{
 			$data['display_title'] = '社員登録';
 			$this->template->content = View::forge('admin/staff/addconfirm', $data);
+			$this->template->set_global('divisions', $this->_divisions);
 			$this->template->set_global('input',  $val->validated());
 		}
 		else
 		{
 			$data['display_title'] = '社員登録';
 			$this->template->content = View::forge('admin/staff/add', $data);
+			$this->template->set_global('divisions', $this->_divisions);
 			$this->template->content->set_safe('html_error', $val->show_errors());
 		}
 	}
@@ -80,9 +84,11 @@ class Controller_Admin_Staff extends Controller_Admin
 			->add_rule('required')
 			->add_rule('max_length', 20);
 
-		$val->add('sex', '性別');
+		$val->add('sex', '性別')
+			->add_rule('required');
 
-		$val->add('division_id', '所属部署');
+		$val->add('division', '所属部署')
+			->add_rule('required');
 
 		return $val;
 	}
@@ -109,29 +115,41 @@ class Controller_Admin_Staff extends Controller_Admin
 		$id = Input::post('id');
 		if (isset($id))
 		{
-			$staff = Model_Staff::find($id);
-			$staff->num          = Input::post('num');
-			$staff->name         = Input::post('name');
-			$staff->sex          = Input::post('sex');
-			$staff->division_id = Input::post('division_id');
-		}
-		else
-		{
-			$staff = Model_Staff::forge(array(
-				'num'          => Input::post('num'),
-				'name'         => Input::post('name'),
-				'sex'          => Input::post('sex'),
-				'division_id' => Input::post('division_id'),
+			$mongodb = \Mongo_Db::instance('default');
+			$insert_id = $mongodb->insert('staff', array(
+				'num'      => Input::post('num'),
+				'name'     => Input::post('name'),
+				'sex'      => Input::post('sex'),
+				'division' => Input::post('division'),
 			));
-		}
+			if ($insert_id !== false)
+			{
 
-		if ($staff->save())
-		{
-			Session::set_flash('success', e('登録しました!'));
+				Session::set_flash('success', e('登録しました!'));
+			}
+			else
+			{
+				Session::set_flash('error', e('エラーが発生しました'));
+			}
 		}
 		else
 		{
-			Session::set_flash('error', e('エラーが発生しました'));
+			$mongodb = \Mongo_Db::instance('default');
+			$insert_id = $mongodb->insert('staff', array(
+				'num'      => Input::post('num'),
+				'name'     => Input::post('name'),
+				'sex'      => Input::post('sex'),
+				'division' => Input::post('division'),
+			));
+			if ($insert_id !== false)
+			{
+
+				Session::set_flash('success', e('登録しました!'));
+			}
+			else
+			{
+				Session::set_flash('error', e('エラーが発生しました'));
+			}
 		}
 		Response::redirect('admin/staff/index');
 	}

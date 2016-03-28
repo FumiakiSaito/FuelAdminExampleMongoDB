@@ -29,9 +29,9 @@
 			</td>
 		</tr>
 		<tr>
-			<th><?php echo Form::label('所属部署', 'division_id'); ?></th>
+			<th><?php echo Form::label('所属部署', 'division'); ?></th>
 			<td>
-			<?php echo Form::select('division_id', Input::post('division_id'), $divisions); ?>
+			<?php echo Form::select('division', Input::post('division'), $divisions); ?>
 			</td>
 		</tr>
 	</tbody>
