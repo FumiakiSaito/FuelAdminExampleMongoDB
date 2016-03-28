@@ -13,14 +13,6 @@ class Controller_Admin_Staff extends Controller_Admin
 	{
 		parent::before();
 		$this->template->title = '社員管理';
-
-		// 部署データ設定
-		$divisions = Model_Division::find('all');
-		foreach ($divisions as $division)
-		{
-			$divisions_data[$division->id] = $division->name;
-		}
-		$this->_divisions = $divisions_data;
 	}
 
 	/**
@@ -46,7 +38,6 @@ class Controller_Admin_Staff extends Controller_Admin
 		$data = null;
 		$data['display_title'] = '社員登録';
 
-		$data['divisions'] = $this->_divisions;
 		$this->template->content = View::forge('admin/staff/add', $data);
 	}
 
@@ -63,7 +54,6 @@ class Controller_Admin_Staff extends Controller_Admin
 		{
 			$data['display_title'] = '社員登録';
 			$this->template->content = View::forge('admin/staff/addconfirm', $data);
-			$this->template->set_global('divisions', $this->_divisions);
 			$this->template->set_global('input',  $val->validated());
 		}
 		else
@@ -171,7 +161,6 @@ class Controller_Admin_Staff extends Controller_Admin
 	{
 		$data = null;
 		$data['display_title'] = '社員詳細';
-		$data['divisions'] = $this->_divisions;
 
 		$staff = Model_Staff::find($id);
 		if (!isset($staff))
@@ -190,8 +179,6 @@ class Controller_Admin_Staff extends Controller_Admin
 	{
 		$data = null;
 		$data['display_title'] = '社員編集';
-
-		$data['divisions'] = $this->_divisions;
 
 		$staff = Model_Staff::find($id);
 		if (!isset($staff))
@@ -216,7 +203,6 @@ class Controller_Admin_Staff extends Controller_Admin
 		{
 			$data['display_title'] = '社員編集';
 			$this->template->content = View::forge('admin/staff/editconfirm', $data);
-			$this->template->set_global('divisions', $this->_divisions);
 			$this->template->set_global('input',  $val->validated());
 		}
 		else
