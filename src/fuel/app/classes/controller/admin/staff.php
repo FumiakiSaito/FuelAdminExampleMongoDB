@@ -151,10 +151,11 @@ class Controller_Admin_Staff extends Controller_Admin
 	 */
 	public function action_delete($id)
 	{
-		$staff = Model_Staff::find($id);
-		if ($staff->delete())
+		$mongodb = \Mongo_Db::instance('default');
+		$result = $mongodb->where(array('_id' => new \MongoId($id)))->delete('staff'); // _id指定する場合はpeclのMongoId関数を使用する
+		if ($result)
 		{
-			Session::set_flash('success', e('登録しました!'));
+			Session::set_flash('success', e('削除しました!'));
 		}
 		else
 		{
