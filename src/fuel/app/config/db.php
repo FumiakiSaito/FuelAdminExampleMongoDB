@@ -71,4 +71,10 @@ return array(
 			'readonly'       => false,
 	),
 */
+	'mongo' => array(
+		'default' => array(
+			'hostname'   => 'localhost',
+			'database'   => 'fuel_admin_example',
+		),
+	),
 );

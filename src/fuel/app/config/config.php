@@ -311,7 +311,7 @@ return array(
 		// 'language'  => array(),
 	),
 
-	'title' => '管理画面サンプル',
+	'title' => '管理画面サンプル(MongoDB)',
 	'copyright' => 'copyright©hogehoge all rights reserved.',
 
 	);
