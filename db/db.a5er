@@ -1,0 +1,109 @@
+﻿# A5:ER FORMAT:10
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",5,"A4Landscape",$FFFFFF
+Domain=SERIAL=INT UNSIGNED AUTO_INCREMENT
+Domain=UINT=INT UNSIGNED
+Domain=UTINYINT=TINYINT UNSIGNED
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=5
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=8
+PaperSize=A4Landscape
+HeaderLeft=%PageName%
+HeaderCenter=
+HeaderRight=%ProjectName%
+FooterLeft=
+FooterCenter=
+FooterRight=%PageNo% / %PageCount%
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=0
+CreateFk=1
+FkOnDeleteOption=on delete cascade
+CreateFK_ParentCard1Only=1
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=division
+LName=部署
+Comment=
+TableOption=ENGINE=InnoDB CHARACTER SET utf8
+Page=MAIN
+Left=900
+Top=550
+Field="部署ID","id","*SERIAL","NOT NULL",0,"","",$FFFFFFFF,""
+Field="部署名","name","@VARCHAR(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="作成日時","created_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="更新日時","updated_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160318114357
+Position="MAIN",900,550
+
+[Entity]
+PName=staff
+LName=社員
+Comment=
+TableOption=ENGINE=InnoDB CHARACTER SET utf8
+Page=MAIN
+Left=800
+Top=100
+Field="社員ID","id","*SERIAL","NOT NULL",0,"","",$FFFFFFFF,""
+Field="社員番号","num","@VARCHAR(4)","NOT NULL",,"","",$FFFFFFFF,""
+Field="名前","name","@VARCHAR(20)","NOT NULL",,"","",$FFFFFFFF,""
+Field="性別","sex","*UTINYINT","NOT NULL",,"","",$FFFFFFFF,""
+Field="所属部署ID","division_id","*UINT","NOT NULL",,"","",$FFFFFFFF,""
+Field="作成日時","created_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+Field="更新日時","updated_at","@DATETIME","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160318114412
+Position="MAIN",800,100
+
+[Entity]
+PName=admin
+LName=管理者
+Comment=
+TableOption=ENGINE=InnoDB CHARACTER SET utf8
+Page=MAIN
+Left=100
+Top=100
+Field="管理者ID","id","*SERIAL","NOT NULL",0,"","",$FFFFFFFF,""
+Field="アカウント","username","@VARCHAR(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード","password","@CHAR(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="グループ","group","INT","NOT NULL",,"1","",$FFFFFFFF,""
+Field="メールアドレス","email","@VARCHAR(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="最終ログイン","last_login","@VARCHAR(25)",,,"","",$FFFFFFFF,""
+Field="ログインハッシュ","login_hash","@VARCHAR(255)",,,"","",$FFFFFFFF,""
+Field="プロファイルフィールド","profile_fields","TEXT",,,"","",$FFFFFFFF,""
+Field="作成日時","created_at","@INT","NOT NULL",,"","UNIXタイムスタンプ",$FFFFFFFF,""
+Field="更新日時","updated_at","@INT","NOT NULL",,"","UNIXタイムスタンプ",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160318114457
+Position="MAIN",100,100

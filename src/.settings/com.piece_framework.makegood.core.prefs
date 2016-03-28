@@ -1,0 +1,10 @@
+cakephp_app_path=
+cakephp_core_path=
+ciunit_config_file=
+ciunit_path=
+eclipse.preferences.version=1
+phpunit_config_file=/sudoku-server/fuel/app/phpunit.xml
+preload_script=
+test_file_pattern=Test_(\\w+).php$
+test_folders=/sudoku-server/fuel/app/tests
+testing_framework=PHPUnit
