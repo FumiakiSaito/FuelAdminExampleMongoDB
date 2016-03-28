@@ -11,7 +11,7 @@
 	#AllowOverride All
 	#RewriteBase /wherever/fuel/isi
 
-	RewriteBase /dev/fuel_admin_example/public
+	RewriteBase /dev/FuelAdminExampleMongoDB/public
 
 
 	# Restrict your site to only one domain

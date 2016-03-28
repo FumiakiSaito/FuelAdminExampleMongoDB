@@ -28,8 +28,11 @@ class Controller_Admin_Staff extends Controller_Admin
 	 */
 	public function action_index()
 	{
+		$mongodb = \Mongo_Db::instance('default');
+		$staffs = $mongodb->get('staff');
+
 		$data = null;
-		$data['staffs'] = Model_Staff::find('all');
+		$data['staffs'] = $staffs;
 
 		$data['display_title'] = '社員一覧';
 		$this->template->content = View::forge('admin/staff/index', $data);
