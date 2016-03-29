@@ -184,8 +184,9 @@ class Controller_Admin_Staff extends Controller_Admin
 		$data = null;
 		$data['display_title'] = '社員詳細';
 
-		$staff = Model_Staff::find($id);
-		if (!isset($staff))
+		$mongodb = \Mongo_Db::instance('default');
+		$staff = $mongodb->get_one('staff', array('_id' => new \MongoId($id)));
+		if ($staff === false)
 		{
 			Session::set_flash('error', e('エラーが発生しました'));
 			Response::redirect('admin/staff/index');

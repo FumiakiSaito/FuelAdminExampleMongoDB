@@ -3,32 +3,22 @@
 	<tbody>
 		<tr>
 			<th>社員番号</th>
-			<td> <?php echo $staff->num; ?></td>
+			<td> <?php echo $staff['num']; ?></td>
 		</tr>
 		<tr>
 			<th>名前</th>
-			<td> <?php echo $staff->name; ?></td>
+			<td> <?php echo $staff['name']; ?></td>
 		</tr>
 		<tr>
 			<th>性別</th>
 			<td>
-				<?php if ($staff->sex == Model_Sex::MALE) : ?>
-					男性
-				<?php else: ?>
-					女性
-				<?php endif; ?>
+				<?php echo $staff['sex'] ?>
 			</td>
 		</tr>
 		<tr>
 			<th>所属部署</th>
 			<td>
-				<?php
-					foreach ($divisions as $division_id => $division) {
-						if ($staff->division_id == $division_id) {
-							echo $division;
-						}
-					}
-				?>
+				<?php echo $staff['division'] ?>
 			</td>
 		</tr>
 	</tbody>
