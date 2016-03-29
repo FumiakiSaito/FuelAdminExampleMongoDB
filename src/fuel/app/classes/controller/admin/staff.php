@@ -116,16 +116,19 @@ class Controller_Admin_Staff extends Controller_Admin
 		if (isset($id))
 		{
 			$mongodb = \Mongo_Db::instance('default');
-			$insert_id = $mongodb->insert('staff', array(
-				'num'      => Input::post('num'),
-				'name'     => Input::post('name'),
-				'sex'      => Input::post('sex'),
-				'division' => Input::post('division'),
-			));
-			if ($insert_id !== false)
+			$result = $mongodb->where(array('_id' => new \MongoId($id)))->update('staff',
+				array(
+					'num'      => Input::post('num'),
+					'name'     => Input::post('name'),
+					'sex'      => Input::post('sex'),
+					'division' => Input::post('division'),
+				)
+			);
+
+			if ($result === true)
 			{
 
-				Session::set_flash('success', e('登録しました!'));
+				Session::set_flash('success', e('更新しました!'));
 			}
 			else
 			{
@@ -141,6 +144,7 @@ class Controller_Admin_Staff extends Controller_Admin
 				'sex'      => Input::post('sex'),
 				'division' => Input::post('division'),
 			));
+
 			if ($insert_id !== false)
 			{
 
@@ -198,13 +202,15 @@ class Controller_Admin_Staff extends Controller_Admin
 		$data = null;
 		$data['display_title'] = '社員編集';
 
-		$staff = Model_Staff::find($id);
-		if (!isset($staff))
+		$mongodb = \Mongo_Db::instance('default');
+		$staff = $mongodb->get_one('staff', array('_id' => new \MongoId($id)));
+		if ($staff === false)
 		{
 			Session::set_flash('error', e('エラーが発生しました'));
 			Response::redirect('admin/staff/index');
 		}
 		$data['staff'] = $staff;
+		$data['divisions'] = $this->_divisions;
 		$this->template->content = View::forge('admin/staff/edit', $data);
 	}
 
@@ -216,16 +222,16 @@ class Controller_Admin_Staff extends Controller_Admin
 		$val = $this->forge_validation();
 
 		$data = null;
+		$data['display_title'] = '社員編集';
 
 		if ($val->run())
 		{
-			$data['display_title'] = '社員編集';
 			$this->template->content = View::forge('admin/staff/editconfirm', $data);
 			$this->template->set_global('input',  $val->validated());
+			$this->template->set_global('divisions', $this->_divisions);
 		}
 		else
 		{
-			$data['display_title'] = '社員編集';
 			$this->template->content = View::forge('admin/staff/edit', $data);
 			$this->template->set_global('data', $data);
 			$this->template->content->set_safe('html_error', $val->show_errors());
