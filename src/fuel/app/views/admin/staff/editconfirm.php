@@ -7,7 +7,7 @@ echo Form::submit('submit', '修正', array('class' => 'btn btn-default'));
 echo Form::hidden('num', $input['num']);
 echo Form::hidden('name', $input['name']);
 echo Form::hidden('sex', $input['sex']);
-echo Form::hidden('division_id', $input['division_id']);
+echo Form::hidden('division', $input['division']);
 echo Form::close();
 ?>
 </div>
@@ -19,7 +19,7 @@ echo Form::csrf();
 echo Form::hidden('num', $input['num'], array('id' => 'num'));
 echo Form::hidden('name', $input['name'], array('id' => 'name'));
 echo Form::hidden('sex', $input['sex'], array('id' => 'sex'));
-echo Form::hidden('division_id', $input['division_id'], array('id' => 'division_id'));
+echo Form::hidden('division', $input['division'], array('id' => 'division'));
 echo Form::hidden('id', $input['id'], array('id' => 'id'));
 echo Form::close();
 ?>

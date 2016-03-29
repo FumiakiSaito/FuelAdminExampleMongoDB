@@ -11,29 +11,29 @@
 	<tbody>
 		<tr>
 			<th><?php echo Form::label('社員番号', 'num'); ?></th>
-			<td> <?php echo Form::input('num', $staff->num); ?></td>
+			<td> <?php echo Form::input('num', $staff['num']); ?></td>
 		</tr>
 		<tr>
 			<th><?php echo Form::label('名前', 'name'); ?></th>
-			<td> <?php echo Form::input('name', $staff->name); ?></td>
+			<td> <?php echo Form::input('name', $staff['name']); ?></td>
 		</tr>
 		<tr>
 			<th><?php echo Form::label('性別', 'sex'); ?></th>
 			<td>
 				<?php
 				echo Form::label('男性', 'sex');
-				echo Form::radio('sex', Model_Sex::MALE, $staff->sex == Model_Sex::MALE);
+				echo Form::radio('sex', Model_Sex::MALE, $staff['sex'] == Model_Sex::MALE);
 				echo Form::label('女性', 'sex');
-				echo Form::radio('sex', Model_Sex::FEMALE, $staff->sex == Model_Sex::FEMALE);
+				echo Form::radio('sex', Model_Sex::FEMALE, $staff['sex'] == Model_Sex::FEMALE);
 				?>
 			</td>
 		</tr>
 		<tr>
-			<th><?php echo Form::label('所属部署', 'division_id'); ?></th>
-			<td><?php echo Form::select('division_id', $staff->division_id, $divisions); ?></td>
+			<th><?php echo Form::label('所属部署', 'division'); ?></th>
+			<td><?php echo Form::select('division', $staff['division'], $divisions); ?></td>
 		</tr>
 	</tbody>
 </table>
-<?php echo Form::hidden('id', $staff->id, array('id' => 'id')); ?>
+<?php echo Form::hidden('id', $staff['_id'], array('id' => 'id')); ?>
 <?php echo Form::submit('submit', '確認', array('class' => 'btn btn-default')); ?>
 <?php echo Form::close(); ?>

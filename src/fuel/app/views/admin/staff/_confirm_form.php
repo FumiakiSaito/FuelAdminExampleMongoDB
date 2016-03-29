@@ -22,8 +22,8 @@
 			<th>所属部署</th>
 			<td>
 				<?php
-					foreach ($divisions as $division_id => $division) {
-						if ($input['division_id'] == $division_id) {
+					foreach ($divisions as $division) {
+						if ($input['division'] == $division) {
 							echo $division;
 						}
 					}
